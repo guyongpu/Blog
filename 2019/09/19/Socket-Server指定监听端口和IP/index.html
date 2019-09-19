@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://github.com/guyongpu">
-  <title>个人博客</title>
+  <title>Socket Server指定监听端口和IP | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Socket Server指定监听端口和IP&amp;emsp;&amp;emsp;TCP/IP进行网络编程时，会用到socket相关函数，各个函数的详细介绍在这里：https://www.cnblogs.com/liedElxa/p/10795398.html 需求描述&amp;emsp;&amp;emsp;考虑到一种场景，在一个多网卡的服务器上，比如有10.0.0.1、10.0.0.2、10.0.0.3三个网卡都在使用，我们">
+  <meta name="description" content="&amp;emsp;&amp;emsp;TCP/IP进行网络编程时，会用到socket相关函数，各个函数的详细介绍在这里：https://www.cnblogs.com/liedElxa/p/10795398.html 需求描述&amp;emsp;&amp;emsp;考虑到一种场景，在一个多网卡的服务器上，比如有10.0.0.1、10.0.0.2、10.0.0.3三个网卡都在使用，我们想做一个监听8080号端口的服务器，而且只有">
 <meta property="og:type" content="article">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="https://github.com/guyongpu/2019/09/19/Socket Server指定监听端口和IP/index.html">
+<meta property="og:title" content="Socket Server指定监听端口和IP">
+<meta property="og:url" content="https://github.com/guyongpu/2019/09/19/Socket-Server指定监听端口和IP/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="Socket Server指定监听端口和IP&amp;emsp;&amp;emsp;TCP/IP进行网络编程时，会用到socket相关函数，各个函数的详细介绍在这里：https://www.cnblogs.com/liedElxa/p/10795398.html 需求描述&amp;emsp;&amp;emsp;考虑到一种场景，在一个多网卡的服务器上，比如有10.0.0.1、10.0.0.2、10.0.0.3三个网卡都在使用，我们">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;TCP/IP进行网络编程时，会用到socket相关函数，各个函数的详细介绍在这里：https://www.cnblogs.com/liedElxa/p/10795398.html 需求描述&amp;emsp;&amp;emsp;考虑到一种场景，在一个多网卡的服务器上，比如有10.0.0.1、10.0.0.2、10.0.0.3三个网卡都在使用，我们想做一个监听8080号端口的服务器，而且只有">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-19T08:41:44.474Z">
+<meta property="og:updated_time" content="2019-09-19T08:49:09.919Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人博客">
-<meta name="twitter:description" content="Socket Server指定监听端口和IP&amp;emsp;&amp;emsp;TCP/IP进行网络编程时，会用到socket相关函数，各个函数的详细介绍在这里：https://www.cnblogs.com/liedElxa/p/10795398.html 需求描述&amp;emsp;&amp;emsp;考虑到一种场景，在一个多网卡的服务器上，比如有10.0.0.1、10.0.0.2、10.0.0.3三个网卡都在使用，我们">
+<meta name="twitter:title" content="Socket Server指定监听端口和IP">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;TCP/IP进行网络编程时，会用到socket相关函数，各个函数的详细介绍在这里：https://www.cnblogs.com/liedElxa/p/10795398.html 需求描述&amp;emsp;&amp;emsp;考虑到一种场景，在一个多网卡的服务器上，比如有10.0.0.1、10.0.0.2、10.0.0.3三个网卡都在使用，我们想做一个监听8080号端口的服务器，而且只有">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -154,12 +154,27 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Socket Server指定监听端口和IP" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Socket-Server指定监听端口和IP" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Socket Server指定监听端口和IP
+    </h1>
+  
+
+        
+        <a href="/Blog/2019/09/19/Socket-Server指定监听端口和IP/" class="archive-article-date">
+  	<time datetime="2019-09-19T08:48:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-19</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Socket-Server指定监听端口和IP"><a href="#Socket-Server指定监听端口和IP" class="headerlink" title="Socket Server指定监听端口和IP"></a>Socket Server指定监听端口和IP</h1><p>&emsp;&emsp;TCP/IP进行网络编程时，会用到socket相关函数，各个函数的详细介绍在这里：<br><a href="https://www.cnblogs.com/liedElxa/p/10795398.html" target="_blank" rel="noopener">https://www.cnblogs.com/liedElxa/p/10795398.html</a></p>
+        <p>&emsp;&emsp;TCP/IP进行网络编程时，会用到socket相关函数，各个函数的详细介绍在这里：<br><a href="https://www.cnblogs.com/liedElxa/p/10795398.html" target="_blank" rel="noopener">https://www.cnblogs.com/liedElxa/p/10795398.html</a></p>
 <h2 id="需求描述"><a href="#需求描述" class="headerlink" title="需求描述"></a>需求描述</h2><p>&emsp;&emsp;考虑到一种场景，在一个多网卡的服务器上，比如有10.0.0.1、10.0.0.2、10.0.0.3三个网卡都在使用，我们想做一个监听8080号端口的服务器，而且只有客户访问10.0.0.1:8080才会响应，访问10.0.0.2:8080或10.0.0.3:8080均不会收到回复。<br>&emsp;&emsp;在进行TCP/IP网络编程过程中，一般在对serv_adr进行绑定时，使用serv_adr进行绑定。</p>
 <h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><p>serv_adr结构体定义如下：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> &#123;</span></span><br><span class="line"></span><br><span class="line">　　<span class="keyword">short</span> <span class="keyword">int</span> sin_family; 		<span class="comment">/* 通信类型 */</span></span><br><span class="line"></span><br><span class="line">　　<span class="keyword">unsigned</span> <span class="keyword">short</span> <span class="keyword">int</span> sin_port; <span class="comment">/* 端口 */</span></span><br><span class="line"></span><br><span class="line">　　<span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> <span class="title">sin_addr</span>;</span> 	<span class="comment">/* Internet 地址 */</span></span><br><span class="line"></span><br><span class="line">　　<span class="keyword">unsigned</span> <span class="keyword">char</span> sin_zero[<span class="number">8</span>]; 	<span class="comment">/* 与sockaddr结构的长度相同*/</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -250,7 +265,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://github.com/guyongpu/2019/09/19/Socket Server指定监听端口和IP/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://github.com/guyongpu/2019/09/19/Socket-Server指定监听端口和IP/" alt="微信分享二维码">
     </div>
 </div>
 
