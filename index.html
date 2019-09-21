@@ -19,7 +19,7 @@
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
   
-    <link rel="icon" href="Blog/img/favicon.ico">
+    <link rel="icon" href="/Blog/img/favicon.ico">
   
   <link rel="stylesheet" type="text/css" href="/Blog/./main.0cf68a.css">
   <style type="text/css">
@@ -151,6 +151,99 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-关于C-重载、重写、重定义的理解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Blog/2019/09/21/关于C-重载、重写、重定义的理解/">关于C++重载、重写、重定义的理解</a>
+    </h1>
+  
+
+        
+        <a href="/Blog/2019/09/21/关于C-重载、重写、重定义的理解/" class="archive-article-date">
+  	<time datetime="2019-09-21T02:58:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="关于C-重载、重写、重定义的理解"><a href="#关于C-重载、重写、重定义的理解" class="headerlink" title="关于C++重载、重写、重定义的理解"></a>关于C++重载、重写、重定义的理解</h1><h2 id="三个名词的定义"><a href="#三个名词的定义" class="headerlink" title="三个名词的定义"></a>三个名词的定义</h2><p>重载：(overload)是指同一可访问区内被声明的几个具有不同参数列（参数的类型，个数，顺序不同）的同名函数，根据参数列表确定调用哪个函数，重载不关心函数返回类型，即返回类型可以相同或不同。  </p>
+<p>重写(覆盖)：(override)是指派生类中存在重新定义的函数。其函数名，参数列表，返回值类型，所有都必须同基类中被重写的函数一致。只有函数体不同（花括号内），派生类调用时会调用派生类的重写函数，不会调用被重写函数。重写的基类中被重写的函数必须有virtual修饰。</p>
+<p>重载和重写的区别：</p>
+<p>（1）范围区别：重写和被重写的函数在不同的类中，重载和被重载的函数在同一类中。<br>（2）参数区别：重写与被重写的函数参数列表一定相同，重载和被重载的函数参数列表一定不同。<br>（3）virtual的区别：重写的基类必须要有virtual修饰，重载函数和被重载函数可以被virtual修饰，也可以没有。</p>
+<p>隐藏和重写，重载的区别：<br>（1）与重载范围不同：隐藏函数和被隐藏函数在不同类中。<br>（2）参数的区别：隐藏函数和被隐藏函数参数列表可以相同，也可以不同，但函数名一定同；当参数不同时，无论基类中的函数是否被virtual修饰，基类函数都是被隐藏，而不是被重写。</p>
+<p>正常情况下的重载</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">double</span> i)</span></span>;        <span class="comment">//overload</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">double</span> j)</span></span>; <span class="comment">//overload</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">double</span> i, <span class="keyword">int</span> j)</span></span>; <span class="comment">//overload</span></span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> i)</span></span>;            <span class="comment">//错误，非重载。注意重载不关心函数返回类型。</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>之前说到重载的三个条件，类型、顺序或个数不相同，只要满足一个就可以说是重载吗？显然，类型或个数不同时肯定可以算是重载的，下面考虑仅顺序不同的情况。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> b, <span class="keyword">int</span> a)</span></span>; <span class="comment">//不是重载</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<br>
+test(int a, int b)和test(int b, int a)仅顺序不同，但是参数类型相同，这不能算做重载，实验如下：
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">	  <span class="built_in">cout</span> &lt;&lt; a+b &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	  <span class="built_in">cout</span> &lt;&lt; <span class="string">"test(int a, int b)"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> b, <span class="keyword">int</span> a)</span> <span class="comment">//不是重载</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">	  <span class="built_in">cout</span> &lt;&lt; a+b &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	  <span class="built_in">cout</span> &lt;&lt; <span class="string">"test(int b, int a)"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"hello world"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果,编译无法通过。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/code/main.cpp:<span class="number">12</span>:<span class="number">8</span>: error: ‘<span class="keyword">void</span> A::test(<span class="keyword">int</span>, <span class="keyword">int</span>)’ cannot be overloaded</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> b, <span class="keyword">int</span> a)</span> <span class="comment">//不是重载</span></span></span><br><span class="line">        ^</span><br><span class="line">/code/main.cpp:<span class="number">7</span>:<span class="number">8</span>: error: with ‘<span class="keyword">void</span> A::test(<span class="keyword">int</span>, <span class="keyword">int</span>)’</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>总的来说，辨别是否是重载函数，在于两个同名函数是否能通过参数进行区分，或者说是否能唯一辨识，避免出现二义性。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/Blog/2019/09/21/关于C-重载、重写、重定义的理解/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-Socket-Server指定监听端口和IP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -474,6 +567,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
